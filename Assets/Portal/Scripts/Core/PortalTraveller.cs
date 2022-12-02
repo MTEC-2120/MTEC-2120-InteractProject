@@ -10,12 +10,6 @@ public class PortalTraveller : MonoBehaviour {
     public Material[] originalMaterials { get; set; }
     public Material[] cloneMaterials { get; set; }
 
-    public delegate void TravellerEnterPortal(); 
-    public static event TravellerEnterPortal OnTravellerEnterPortal;
-
-    public delegate void TravellerExitPortal();
-    public static event TravellerExitPortal OnTravellerExitPortal;
-
     public virtual void Teleport (Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot) {
         transform.position = pos;
         transform.rotation = rot;
@@ -23,10 +17,6 @@ public class PortalTraveller : MonoBehaviour {
 
     // Called when first touches portal
     public virtual void EnterPortalThreshold () {
-
-        OnTravellerEnterPortal?.Invoke(); 
-        
-
         if (graphicsClone == null) {
             graphicsClone = Instantiate (graphicsObject);
             graphicsClone.transform.parent = graphicsObject.transform.parent;
@@ -40,9 +30,6 @@ public class PortalTraveller : MonoBehaviour {
 
     // Called once no longer touching portal (excluding when teleporting)
     public virtual void ExitPortalThreshold () {
-
-        OnTravellerExitPortal?.Invoke();
-
         graphicsClone.SetActive (false);
         // Disable slicing
         for (int i = 0; i < originalMaterials.Length; i++) {
