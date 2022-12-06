@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (C) 2014, 2015 Keijiro Takahashi
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -84,21 +84,6 @@ public class ColorSuite : MonoBehaviour
     public AnimationCurve rgbCurve {
         get { return _cCurve; }
         set { _cCurve = value; UpdateLUT(); }
-    }
-
-    // Fade to color.
-    [SerializeField] Color _fadeColor = new Color(0, 0, 0, 0);
-
-    public Color fadeColor {
-        get { return _fadeColor; }
-        set { _fadeColor = value; }
-    }
-
-    [SerializeField] float _forceFade;
-
-    public float forceFade {
-        get { return _forceFade; }
-        set { _forceFade = value; }
     }
 
     // Dithering.
@@ -272,10 +257,6 @@ public class ColorSuite : MonoBehaviour
             _material.DisableKeyword("DITHER_ORDERED");
             _material.DisableKeyword("DITHER_TRIANGULAR");
         }
-
-        var forceFadeColor = new Color(1, 1, 1, 0.5f);
-        var fade = Color.Lerp(_fadeColor, forceFadeColor, _forceFade);
-        _material.SetColor("_Fade", fade);
 
         Graphics.Blit(source, destination, _material);
     }
